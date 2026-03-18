@@ -26,7 +26,7 @@ export interface TeamMemberRecommendation {
 
 export async function analyzeMarketingIdea(idea: string, category: string): Promise<MarketingAnalysis> {
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash",
+    model: "gemini-2.5-flash",
     contents: `Analizza la seguente idea di marketing per un progetto di tipo "${category}": "${idea}". 
     Fornisci un'analisi SWOT dettagliata, una lista di pro e contro e una breve struttura di business plan.
     Rispondi in ITALIANO.
@@ -59,7 +59,7 @@ export async function analyzeCompetitors(idea: string, scope: string, category: 
   const urlContext = urls.length > 0 ? `\nInoltre, analizza in modo approfondito le strategie online di questi siti web dei competitor:\n${urls.map(u => `- ${u}`).join('\n')}` : '';
 
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash",
+    model: "gemini-2.5-flash",
     contents: `Sei un esperto analista di mercato e stratega aziendale.
     L'utente sta avviando un progetto con queste caratteristiche:
     - Idea: "${idea}"
@@ -119,7 +119,7 @@ export async function analyzeLocation(location: string, idea: string, category: 
 export async function findSponsorsAI(idea: string, category: string, location: string) {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-2.5-flash",
       contents: `Analizza l'idea: "${idea}" (categoria: ${category}) a "${location}".
       Identifica i 3-5 profili di sponsor ideali (categorie di aziende).
       Per ogni categoria fornisci:
@@ -138,7 +138,7 @@ export async function findSponsorsAI(idea: string, category: string, location: s
 
 export async function recommendTeam(idea: string, category: string, expectedRevenue: number): Promise<TeamMemberRecommendation[]> {
   const response = await ai.models.generateContent({
-    model: "gemini-3.1-pro-preview",
+    model: "gemini-2.5-flash",
     contents: `Sei un Project Manager esperto di livello mondiale.
     L'utente sta pianificando un progetto di tipo "${category}" con la seguente idea: "${idea}".
     Le entrate previste (budget/revenue) per questo progetto sono stimate a €${expectedRevenue}.
@@ -181,7 +181,7 @@ export async function recommendTeam(idea: string, category: string, expectedReve
 
 export function createMarketingChat(): Chat {
   return ai.chats.create({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     config: {
       systemInstruction: `Sei un esperto di marketing di livello mondiale con una profonda conoscenza del mercato italiano. 
       Fornisci consulenza strategica, idee creative e suggerimenti pratici. 
@@ -203,7 +203,7 @@ export function createProjectManagerChat(idea?: string, expectedRevenue?: number
   ` : '';
 
   return ai.chats.create({
-    model: "gemini-3.1-pro-preview",
+    model: "gemini-2.5-flash",
     config: {
       systemInstruction: `Sei un Project Manager esperto di livello mondiale.
       Il tuo compito è aiutare l'utente a pianificare e realizzare il suo progetto con un approccio TECNICO e legato al Project Management (non al marketing).
@@ -222,7 +222,7 @@ export function createProjectManagerChat(idea?: string, expectedRevenue?: number
 
 export async function suggestCompensation(idea: string, role: string, expectedRevenue: number): Promise<{ amount: number, type: 'monthly' | 'hourly' | 'fixed' }> {
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     contents: `Sei un esperto HR e Project Manager.
     L'utente sta creando un team per la seguente idea di business: "${idea}".
     Le entrate previste (budget) sono: €${expectedRevenue}.
@@ -256,7 +256,7 @@ export async function suggestCompensation(idea: string, role: string, expectedRe
 
 export function createAccountantChat(): Chat {
   return ai.chats.create({
-    model: "gemini-3.1-flash-preview",
+    model: "gemini-2.5-flash",
     config: {
       systemInstruction: `Sei un Commercialista esperto iscritto all'Albo in Italia, specializzato in consulenza per startup, piccole medie imprese (PMI) e liberi professionisti.
       La tua missione è fornire informazioni precise, aggiornate e professionali sulla legge italiana, con particolare attenzione a:
