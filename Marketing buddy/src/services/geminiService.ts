@@ -26,7 +26,7 @@ export interface TeamMemberRecommendation {
 
 export async function analyzeMarketingIdea(idea: string, category: string): Promise<MarketingAnalysis> {
   const response = await ai.models.generateContent({
-    model: "gemini-3.1-pro-preview",
+    model: "gemini-3-flash",
     contents: `Analizza la seguente idea di marketing per un progetto di tipo "${category}": "${idea}". 
     Fornisci un'analisi SWOT dettagliata, una lista di pro e contro e una breve struttura di business plan.
     Rispondi in ITALIANO.
@@ -59,7 +59,7 @@ export async function analyzeCompetitors(idea: string, scope: string, category: 
   const urlContext = urls.length > 0 ? `\nInoltre, analizza in modo approfondito le strategie online di questi siti web dei competitor:\n${urls.map(u => `- ${u}`).join('\n')}` : '';
 
   const response = await ai.models.generateContent({
-    model: "gemini-3.1-pro-preview",
+    model: "gemini-3-flash",
     contents: `Sei un esperto analista di mercato e stratega aziendale.
     L'utente sta avviando un progetto con queste caratteristiche:
     - Idea: "${idea}"
@@ -256,7 +256,7 @@ export async function suggestCompensation(idea: string, role: string, expectedRe
 
 export function createAccountantChat(): Chat {
   return ai.chats.create({
-    model: "gemini-3.1-pro-preview",
+    model: "gemini-3.1-flash-preview",
     config: {
       systemInstruction: `Sei un Commercialista esperto iscritto all'Albo in Italia, specializzato in consulenza per startup, piccole medie imprese (PMI) e liberi professionisti.
       La tua missione è fornire informazioni precise, aggiornate e professionali sulla legge italiana, con particolare attenzione a:
