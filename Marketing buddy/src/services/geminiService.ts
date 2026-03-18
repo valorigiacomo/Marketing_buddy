@@ -1,7 +1,8 @@
 import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
 
-const apiKey = process.env.GEMINI_API_KEY;
-const ai = new GoogleGenAI({ apiKey: apiKey || "" });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const ai = new GoogleGenAI({ apiKey: apiKey });
+
 
 export interface MarketingAnalysis {
   pros: string[];
